@@ -1,6 +1,5 @@
 package com.revoto.ai.photo.wallpaperappnew;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

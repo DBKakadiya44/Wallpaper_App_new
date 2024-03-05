@@ -24,4 +24,15 @@
 
         android:textSize="32sp"/>
 
+    <TextView
+        android:id="@+id/ad_loading_text_big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="This Action can Contains Ads..."
+        android:textColor="@color/lightblue"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </LinearLayout>

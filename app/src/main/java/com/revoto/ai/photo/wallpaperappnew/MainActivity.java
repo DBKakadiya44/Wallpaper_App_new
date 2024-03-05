@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +22,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.revoto.ai.photo.ADS.AdName;
+import com.revoto.ai.photo.ADS.AdsManager;
+import com.revoto.ai.photo.ADS.InterstitialAD;
 import com.revoto.ai.photo.wallpaperappnew.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
@@ -31,8 +38,11 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     String category = "";
+    InterstitialAD helper;
+    AdsManager adsManager = null;
     String[] categoryList = {"Classic", "Nature", "Technology", "Travel", "Arts", "Music", "Flowers", "Creative","Car","Sport","Food","Cow","Birds","Mountain"};
     private ArrayList<String> wallpaperArrayList = new ArrayList<>();
+    public static int gridfeed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.mainbgcolor));
+
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("ADDEMO", Context.MODE_PRIVATE);
+        gridfeed  = sharedPreferences.getInt(AdName.GridAdFeed ,0);
+
+        adsManager = new AdsManager(this);
+        helper = new InterstitialAD(this, this, adsManager);
+
+        showAlertDialog(this);
 
         showWallPaper();
 
@@ -85,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                         String imgUrl = photoObj.getJSONObject("src").getString("portrait");
                         wallpaperArrayList.add(imgUrl);
 
-                        Images_Adapter imagesAdapter = new Images_Adapter(MainActivity.this, wallpaperArrayList);
+                        New_Ad_Adapter imagesAdapter = new New_Ad_Adapter(MainActivity.this, wallpaperArrayList);
                         RecyclerView.LayoutManager manager1 = new GridLayoutManager(MainActivity.this, 2);
                         binding.rvAllImages.setLayoutManager(manager1);
                         binding.rvAllImages.setAdapter(imagesAdapter);
@@ -132,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
                         wallpaperArrayList.add(imgUrl);
 
-                        Images_Adapter imagesAdapter = new Images_Adapter(MainActivity.this, wallpaperArrayList);
+                        New_Ad_Adapter imagesAdapter = new New_Ad_Adapter(MainActivity.this, wallpaperArrayList);
                         RecyclerView.LayoutManager manager1 = new GridLayoutManager(MainActivity.this, 2);
                         binding.rvAllImages.setLayoutManager(manager1);
                         binding.rvAllImages.setAdapter(imagesAdapter);
@@ -157,4 +175,36 @@ public class MainActivity extends AppCompatActivity {
         };
         queue.add(jsonObjectRequest);
     }
+
+    private void showAlertDialog(Context context) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Data Loading..."); // Set your loading message
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        }, 3000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        helper.showCounterInterstitialAd(new InterstitialAD.AdLoadListeners() {
+            @Override
+            public void onAdLoadFailed() {
+                finish();
+            }
+
+            @Override
+            public void onInterstitialDismissed() {
+                finish();
+            }
+        });
+        super.onBackPressed();
+    }
+
 }

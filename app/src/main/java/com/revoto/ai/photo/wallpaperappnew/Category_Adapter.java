@@ -9,11 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.revoto.ai.photo.ADS.AdsManager;
+import com.revoto.ai.photo.ADS.InterstitialAD;
+
 public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.ViewHolder>
 {
     MainActivity mainActivity;
     String[] categoryList;
-
+    InterstitialAD helper;
+    AdsManager adsManager = null;
     public Category_Adapter(MainActivity mainActivity, String[] categoryList) {
         this.mainActivity = mainActivity;
         this.categoryList = categoryList;
@@ -31,11 +35,27 @@ public class Category_Adapter extends RecyclerView.Adapter<Category_Adapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.category.setText(categoryList[position]);
 
+        adsManager = new AdsManager(mainActivity);
+        helper = new InterstitialAD(mainActivity,mainActivity,adsManager);
+
         holder.category.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String category = categoryList[position];
-                mainActivity.getWallpapersByCategory(category);
+
+                helper.showCounterInterstitialAd(new InterstitialAD.AdLoadListeners() {
+                    @Override
+                    public void onAdLoadFailed() {
+                        String category = categoryList[position];
+                        mainActivity.getWallpapersByCategory(category);
+                    }
+
+                    @Override
+                    public void onInterstitialDismissed() {
+                        String category = categoryList[position];
+                        mainActivity.getWallpapersByCategory(category);
+                    }
+                });
+
             }
         });
     }

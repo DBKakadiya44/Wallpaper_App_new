@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "75234347925",
+    "project_id": "wallpaper-app-new-a1cd9",
+    "storage_bucket": "wallpaper-app-new-a1cd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75234347925:android:a63587f76ada268049c49c",
+        "android_client_info": {
+          "package_name": "com.allhdwallpaper.wallpaper.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDl9rzMsAmg1rwjnzcPlg5SEdNfatrxwXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

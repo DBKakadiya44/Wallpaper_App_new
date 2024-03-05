@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/qurekanetive"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AD"
+        android:textSize="12dp"
+        android:textColor="@color/white"
+        android:layout_gravity="end"
+        android:background="@drawable/radius_btn"
+        android:paddingHorizontal="3dp"
+        android:layout_marginVertical="1dp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/qurekalogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/mgl_square1"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/card"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Play MGL Games &amp; Win Coins"
+                    android:textSize="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:text="Play MGL Games &amp; Earn Upto 1,00,000 Coins Daily."
+                    android:textSize="10dp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/qurekaimg"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/native_banner_5"
+            android:scaleType="fitXY"
+            android:layout_marginVertical="10dp"/>
+
+        <TextView
+            android:id="@+id/btnplaynow"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/radius_btn"
+            android:gravity="center"
+            android:text="Play Now"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>
